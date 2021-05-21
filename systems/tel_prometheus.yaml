@@ -1,0 +1,5 @@
+provider: Prometheus
+
+config:
+  address: target_host
+  port: 9090

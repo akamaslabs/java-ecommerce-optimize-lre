@@ -1,0 +1,40 @@
+name: konakart-optimize
+
+tasks:
+- name: Configure JVM options
+  operator: FileConfigurator
+  arguments:
+    source:
+      hostname: target_host
+      username: ubuntu
+      key: &KEY /home/jsmith/.ssh/akamas.key
+      path: /home/ubuntu/konakart-docker/konakart/docker-compose.yml.templ
+    target:
+      hostname: target_host
+      username: ubuntu
+      key: *KEY
+      path: /home/ubuntu/konakart-docker/konakart/docker-compose.yml
+
+- name: Restart konakart
+  operator: Executor
+  arguments:
+    command: "docker stack deploy --compose-file /home/ubuntu/konakart-docker/konakart/docker-compose.yml sut"
+    host:
+      hostname: target_host
+      username: ubuntu
+      key: *KEY
+
+- name: Performance test
+  operator: LoadRunnerEnterprise
+  arguments:
+    retries: 0
+    address: http://lre_target_host
+    username: johndoe
+    password: password
+    domain: akamasdomain
+    project: akamas
+    tenantID: "cf59c1a8-ad3d-4c9a-9222-edadaae7b8b9"
+    testId: 183
+    testSet: demotestset
+    timeSlot: "30m"
+    verifySSL: false

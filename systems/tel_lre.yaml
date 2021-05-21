@@ -1,0 +1,8 @@
+provider: LoadRunnerEnterprise
+
+config:
+  address: http://target_host
+  port: 8086
+  username: lr2020sp3
+  password: password
+  database: LR2020SP3

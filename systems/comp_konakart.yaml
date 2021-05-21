@@ -1,0 +1,5 @@
+name: konakart
+description: The konakart web application
+componentType: Web Application
+properties:
+  loadrunnerenterprise: ""
